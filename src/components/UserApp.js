@@ -112,6 +112,7 @@ export default function UserApp({ user, darkMode, onLogout, liveWeather }) {
   const [trafficOpen, setTrafficOpen] = useState(true);
   const [hourlyOpen,  setHourlyOpen]  = useState(false);
   const [activePage,  setActivePage]  = useState('route');
+  const [mobileInfoPanelOpen, setMobileInfoPanelOpen] = useState(false);
 
   const [simRunning,       setSimRunning]       = useState(false);
   const [simIndex,         setSimIndex]         = useState(0);
@@ -505,6 +506,13 @@ export default function UserApp({ user, darkMode, onLogout, liveWeather }) {
             simulationCoord={simCoord}
             simShowReports={simShowReports}
           />
+          <button
+            className="mobile-info-toggle-btn"
+            onClick={() => setMobileInfoPanelOpen(v => !v)}
+            aria-label="Bilgi panelini ac/kapat"
+          >
+            {mobileInfoPanelOpen ? '✕' : '☰'}
+          </button>
         </main>
 
         <aside className="user-panel">
@@ -1092,7 +1100,7 @@ export default function UserApp({ user, darkMode, onLogout, liveWeather }) {
           </div>
         </aside>
 
-        <aside className="user-right-panel">
+        <aside className={`user-right-panel ${mobileInfoPanelOpen ? 'mobile-open' : ''}`}>
           <div className="user-rp-card">
             <button className="user-rp-header" onClick={() => setWeatherOpen(v => !v)}>
               <span style={{ display:'flex', alignItems:'center', gap:6 }}>
