@@ -1,70 +1,91 @@
-# Getting Started with Create React App
+# NYC Traffic Risk Analysis — Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React PWA frontend for the NYC Traffic Risk Analysis system.
+Provides route safety analysis, interactive risk map and citizen reporting.
 
-## Available Scripts
+> **Related Repositories:**
+> [ML & Data Analysis](https://github.com/cagan-hatun/nyc-traffic-risk-analysis) |
+> [Backend (Spring Boot)](https://github.com/cagan-hatun/nyc-traffic-backend)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+**User Panel**
+- Route analysis with 3 alternatives (fastest / safest / balanced)
+- Real-time risk scoring via Wang formula
+- Interactive heatmap with 3,408 grid cells
+- Driving simulation with proximity alerts
+- Future date forecasting with weather integration
+- Citizen incident reporting (VGI) with photo upload
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Admin Dashboard**
+- KPI cards (avg risk score, high-risk grid count, report stats)
+- Grid heatmap with hourly intensity slider
+- 7-day and 90-day Prophet forecast charts
+- Borough-based risk distribution (donut chart)
+- Report management (approve / reject / delete / export CSV)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+React · MapLibre GL · Recharts · Axios · React Router ·
+react-hot-toast · Lucide React · PWA (Service Worker)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**External APIs:** TomTom · Open-Meteo · Nominatim · Stadia Maps · OSRM
 
-### `npm run build`
+## Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Requirements
+- Node.js 18+
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone https://github.com/cagan-hatun/nyc-traffic-frontend.git
+cd nyc-traffic-frontend
 
-### `npm run eject`
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+cp .env.example .env
+# Edit .env with your API keys
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Open [http://localhost:3000](http://localhost:3000)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Environment Variables
 
-## Learn More
+```
+REACT_APP_API_URL=http://localhost:8080
+REACT_APP_TOMTOM_KEY=your_key
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Requirements
+- Backend running on port 8080
+- FastAPI ML service running on port 8000
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Structure
 
-### Code Splitting
+```
+src/
+├── components/
+│   ├── UserApp.js          → User panel (route analysis, simulation)
+│   ├── AdminDashboard.js   → Admin panel (KPI, map, reports)
+│   ├── RiskMap.js          → MapLibre GL interactive map
+│   ├── ReportForm.js       → 4-step VGI reporting form
+│   ├── ForecastChart.js    → 90-day Prophet chart
+│   ├── HourlyRiskChart.js  → Hourly risk bar chart
+│   └── ProfilePage.js      → User profile & report history
+├── pages/
+│   ├── LoginPage.js
+│   ├── ForgotPassword.js
+│   └── ResetPassword.js
+├── App.js                  → Routing & auth state
+├── App.css                 → Global styles & CSS variables
+└── api.js                  → Axios API client
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## PWA
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This app is configured as a Progressive Web App.
+On Android/iOS, open in Chrome/Safari and select "Add to Home Screen"
+to install as a standalone application.
